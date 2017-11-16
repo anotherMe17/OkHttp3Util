@@ -11,8 +11,11 @@ import java.nio.charset.Charset;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * <p>HttpLoggingInterceptor class.</p>
+ *
  * @author lirenhao
  * date: 2017/11/9 下午3:38
+ * @version $Id: $Id
  */
 public class HttpLoggingInterceptor implements Interceptor {
     private static final Charset UTF8 = Charset.forName("UTF-8");
@@ -98,10 +101,18 @@ public class HttpLoggingInterceptor implements Interceptor {
         };
     }
 
+    /**
+     * <p>Constructor for HttpLoggingInterceptor.</p>
+     */
     public HttpLoggingInterceptor() {
         this(Logger.DEFAULT);
     }
 
+    /**
+     * <p>Constructor for HttpLoggingInterceptor.</p>
+     *
+     * @param logger a {@link io.github.anotherme17.okhttp3util.interceptor.HttpLoggingInterceptor.Logger} object.
+     */
     public HttpLoggingInterceptor(Logger logger) {
         this.logger = logger;
     }
@@ -112,6 +123,9 @@ public class HttpLoggingInterceptor implements Interceptor {
 
     /**
      * Change the level at which this interceptor logs.
+     *
+     * @param level a {@link io.github.anotherme17.okhttp3util.interceptor.HttpLoggingInterceptor.Level} object.
+     * @return a {@link io.github.anotherme17.okhttp3util.interceptor.HttpLoggingInterceptor} object.
      */
     public HttpLoggingInterceptor setLevel(Level level) {
         if (level == null) throw new NullPointerException("level == null. Use Level.NONE instead.");
@@ -119,10 +133,16 @@ public class HttpLoggingInterceptor implements Interceptor {
         return this;
     }
 
+    /**
+     * <p>Getter for the field <code>level</code>.</p>
+     *
+     * @return a {@link io.github.anotherme17.okhttp3util.interceptor.HttpLoggingInterceptor.Level} object.
+     */
     public Level getLevel() {
         return level;
     }
 
+    /** {@inheritDoc} */
     @Override
     public Response intercept(Chain chain) throws IOException {
         Level level = this.level;
@@ -131,7 +151,6 @@ public class HttpLoggingInterceptor implements Interceptor {
         if (level == Level.NONE) {
             return chain.proceed(request);
         }
-        System.out.println(request.headers());
         boolean logBody = level == Level.BODY;
         boolean logHeaders = logBody || level == Level.HEADERS;
 

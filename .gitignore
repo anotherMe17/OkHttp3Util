@@ -10,3 +10,7 @@
 .idea/
 workspace.xml
 /static-analysis/
+src/main/resources/
+src/test/
+/phantomjsdriver.log
+/.idea/

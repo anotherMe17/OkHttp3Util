@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * <p>DeviceInfoUtil class.</p>
+ *
  * @author zhangwt
- * @date 2017/7/7 22:05.
+ * @version $Id: $Id
  */
 public class DeviceInfoUtil {
 
@@ -19,7 +21,16 @@ public class DeviceInfoUtil {
         add("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36");
     }};
 
+    /**
+     * <p>randomUserAgent.</p>
+     *
+     * @return a {@link java.lang.String} object.
+     */
     public static String randomUserAgent() {
         return list1.get((int) (Math.random() * list1.size()));
+    }
+
+    public static String getVersion(String userAgent){
+        return userAgent.replaceAll("Mozilla/","");
     }
 }
