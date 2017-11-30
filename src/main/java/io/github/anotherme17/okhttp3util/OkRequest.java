@@ -132,8 +132,9 @@ public class OkRequest {
             return RequestBody.create(FORM_JSON, content);
         } else if (FORM_URLENCODED.equals(mediaType)) {
             for (Map.Entry<String, String> entry : params.entrySet()) {
-                content += entry.getKey() + "=" + entry.getValue();
+                content += "&" + entry.getKey() + "=" + entry.getValue();
             }
+            content = content.substring(1);
             return RequestBody.create(FORM_URLENCODED, content);
         }
         return null;
