@@ -44,7 +44,7 @@ public class HeaderInterceptor implements Interceptor {
             for (Map.Entry<String, String> entry : staticHeads.entrySet()) {
                 builder.addHeader(entry.getKey(), entry.getValue());
             }
-
+            request = builder.build();
         }
         return chain.proceed(request);
     }

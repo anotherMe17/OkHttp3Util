@@ -14,6 +14,7 @@ import javax.net.ssl.TrustManager;
 import java.net.Proxy;
 import java.security.SecureRandom;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>OkClient class.</p>
@@ -23,6 +24,10 @@ import java.util.*;
  * @version $Id: $Id
  */
 public class OkClient {
+
+    private int connect_time_out = 10 * 60;
+    private int write_time_out = 10 * 60;
+    private int read_time_out = 10 * 60;
 
     /**
      * Constant <code>FORM_JSON</code>
@@ -75,6 +80,9 @@ public class OkClient {
                 .hostnameVerifier(new TrustAllHostnameVerifier())
                 .cookieJar(cookieManager)
                 .protocols(Arrays.asList(Protocol.HTTP_2, Protocol.SPDY_3, Protocol.HTTP_1_1))
+                .readTimeout(read_time_out, TimeUnit.SECONDS)
+                .writeTimeout(write_time_out, TimeUnit.SECONDS)
+                .connectTimeout(connect_time_out, TimeUnit.SECONDS)
                 .addInterceptor(headerInterceptor)
                 .addInterceptor(loggingInterceptor);
         if (proxy != null) {
@@ -119,6 +127,30 @@ public class OkClient {
 
     public void addStaticHeads(Map<String, String> heads) {
         headerInterceptor.setStaticHeads(heads);
+    }
+
+    public int getConnect_time_out() {
+        return connect_time_out;
+    }
+
+    public void setConnect_time_out(int connect_time_out) {
+        this.connect_time_out = connect_time_out;
+    }
+
+    public int getWrite_time_out() {
+        return write_time_out;
+    }
+
+    public void setWrite_time_out(int write_time_out) {
+        this.write_time_out = write_time_out;
+    }
+
+    public int getRead_time_out() {
+        return read_time_out;
+    }
+
+    public void setRead_time_out(int read_time_out) {
+        this.read_time_out = read_time_out;
     }
 
     private SSLSocketFactory createSSLSocketFactory() {
